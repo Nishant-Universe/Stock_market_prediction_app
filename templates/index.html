@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Price Prediction using LSTM</h1>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="ticker">Stock Ticker:</label>
+                <input type="text" id="ticker" name="ticker" list="tickers" required>
+                <datalist id="tickers">
+                    {% for ticker in tickers %}
+                    <option value="{{ ticker }}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" name="action" value="predict" class="btn predict">Predict</button>
+                <button type="submit" name="action" value="train" class="btn train">Train Model</button>
+            </div>
+        </form>
+        
+        <div class="info">
+            <p>Popular tickers: 
+                {% for ticker in tickers %}
+                {{ ticker }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>Note: Training may take several minutes. Prediction requires a trained model.</p>
+        </div>
+    </div>
+</body>
+</html>
